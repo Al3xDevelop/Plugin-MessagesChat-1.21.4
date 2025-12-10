@@ -1,0 +1,10 @@
+name: StarsMessagesChat
+version: 1.0.0
+main: al3x.StarsMessagesChat.Main
+api-version: '1.21'
+author: Al3x
+description: Плагин для отправки сообщений в чат с интервалами и звуком
+commands:
+  starsmessages:
+    description: Основная команда плагина
+    aliases: [smc]
