@@ -1,4 +1,4 @@
-#Plugin-MessagesChat-1.21.4
+##Plugin-MessagesChat-1.21.4
 Инструкция по компиляции плагина для Minecraft через Maven
 
 Установленная Java Development Kit (JDK) версии 21
