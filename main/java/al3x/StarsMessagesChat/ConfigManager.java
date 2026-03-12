@@ -23,10 +23,8 @@ public class ConfigManager {
     }
 
     private void loadConfig() {
-        // Загружаем интервал
         timeInterval = config.getInt("time", 240);
         
-        // Загружаем сообщения
         messages.clear();
         ConfigurationSection messagesSection = config.getConfigurationSection("messages");
         
@@ -46,7 +44,6 @@ public class ConfigManager {
             }
         }
         
-        // Если нет сообщений в sections, проверяем старый формат
         if (messages.isEmpty()) {
             List<String> defaultMessage = new ArrayList<>();
             defaultMessage.add(ChatColor.translateAlternateColorCodes('&', "&7"));
@@ -66,4 +63,5 @@ public class ConfigManager {
     public int getTimeInterval() {
         return timeInterval;
     }
+
 }
