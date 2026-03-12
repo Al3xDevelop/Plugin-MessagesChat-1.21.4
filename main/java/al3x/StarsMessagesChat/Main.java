@@ -16,16 +16,12 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Сохраняем дефолтный конфиг
         saveDefaultConfig();
         
-        // Инициализируем менеджер конфига
         configManager = new ConfigManager(this);
         
-        // Регистрируем команду
         getCommand("starsmessages").setExecutor(new Commands(this));
         
-        // Запускаем задачу отправки сообщений
         startAnnouncementTask();
         
         getLogger().info("Плагин StarsMessagesChat успешно запущен!");
@@ -33,7 +29,6 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Останавливаем задачу при выключении плагина
         if (announcementTask != null) {
             announcementTask.cancel();
         }
@@ -42,8 +37,7 @@ public class Main extends JavaPlugin {
     }
 
     private void startAnnouncementTask() {
-        // Получаем интервал из конфига (в тиках, 20 тиков = 1 секунда)
-        int interval = configManager.getTimeInterval() * 20; // Конвертируем секунды в тики
+        int interval = configManager.getTimeInterval() * 20;
         
         announcementTask = new BukkitRunnable() {
             @Override
@@ -52,7 +46,6 @@ public class Main extends JavaPlugin {
             }
         };
         
-        // Запускаем задачу с заданным интервалом
         announcementTask.runTaskTimer(this, 0L, interval);
     }
 
@@ -64,10 +57,8 @@ public class Main extends JavaPlugin {
             return;
         }
         
-        // Получаем текущее сообщение
         List<String> currentMessage = messages.get(currentMessageIndex);
         
-        // Отправляем сообщение всем онлайн-игрокам
         for (Player player : Bukkit.getOnlinePlayers()) {
             for (String line : currentMessage) {
                 if (line != null && !line.isEmpty()) {
@@ -75,11 +66,9 @@ public class Main extends JavaPlugin {
                 }
             }
             
-            // Воспроизводим звук Chicken Plop
             player.playSound(player.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1.0f, 1.0f);
         }
         
-        // Переходим к следующему сообщению
         currentMessageIndex = (currentMessageIndex + 1) % messages.size();
     }
 
@@ -91,11 +80,11 @@ public class Main extends JavaPlugin {
         reloadConfig();
         configManager = new ConfigManager(this);
         
-        // Перезапускаем задачу
         if (announcementTask != null) {
             announcementTask.cancel();
         }
         currentMessageIndex = 0;
         startAnnouncementTask();
     }
+
 }
